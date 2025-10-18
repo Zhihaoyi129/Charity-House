@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charity Events - Spreading Love, Building Better</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="weather.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>❤️ Charity House</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="/" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/search" class="nav-link">Search Events</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin" class="nav-link">Admin</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 欢迎区域 -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Spreading Love, Building a Better Society</h1>
+                <p>Welcome to Charity House! We are dedicated to connecting caring individuals with those in need, spreading warmth through various charitable activities to make the world a better place.</p>
+                <div class="hero-buttons">
+                    <a href="/search" class="btn btn-primary">View All Events</a>
+                    <a href="#upcoming" class="btn btn-secondary">Upcoming</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weather Widget -->
+        <section class="organization-info">
+            <div class="container">
+                <div class="weather-widget" id="weatherWidget">
+                    <div class="weather-loading">Loading weather data...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 组织信息 -->
+        <section class="organization-info">
+            <div class="container">
+                <h2>About Charity House</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">🤝</div>
+                        <h3>Our Mission</h3>
+                        <p>To provide support and care for those in need through organizing and coordinating various charitable activities.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🌟</div>
+                        <h3>Our Vision</h3>
+                        <p>To create a society full of love and mutual support, where everyone can feel warmth and care.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">💪</div>
+                        <h3>Our Values</h3>
+                        <p>Integrity, transparency, professionalism, and efficiency, ensuring every act of kindness reaches those who need it most.</p>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>📧 Email: info@charityhouse.org</p>
+                    <p>📞 Phone: 400-123-4567</p>
+                    <p>📍 Address: 123 Charity Street, Chaoyang District, Beijing</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 即将举行的活动 -->
+        <section id="upcoming" class="upcoming-events">
+            <div class="container">
+                <h2>Upcoming Charity Events</h2>
+                <div class="events-grid" id="eventsGrid">
+                    <!-- Event cards will be loaded dynamically via JavaScript -->
+                </div>
+                <div class="view-all">
+                    <a href="/search" class="btn btn-outline">View All Events</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Charity House. Spreading love, making the world better.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="weather.js"></script>
+</body>
+</html>
