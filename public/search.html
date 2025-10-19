@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Events - Charity Events Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="search.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>❤️ Charity House</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/search" class="nav-link active">Search Events</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin" class="nav-link">Admin</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 页面标题 -->
+        <section class="page-header">
+            <div class="container">
+                <h1>Search Charity Events</h1>
+                <p>Filter and find suitable charity events based on your needs</p>
+            </div>
+        </section>
+
+        <!-- 搜索表单 -->
+        <section class="search-section">
+            <div class="container">
+                <form class="search-form" id="searchForm">
+                    <div class="search-grid">
+                        <div class="search-field">
+                            <label for="dateFilter">📅 Event Date</label>
+                            <input type="date" id="dateFilter" name="date" class="form-input">
+                        </div>
+                        
+                        <div class="search-field">
+                            <label for="locationFilter">📍 Event Location</label>
+                            <input type="text" id="locationFilter" name="location" placeholder="Enter location keywords" class="form-input">
+                        </div>
+                        
+                        <div class="search-field">
+                            <label for="categoryFilter">🏷️ Event Category</label>
+                            <select id="categoryFilter" name="category" class="form-input">
+                                <option value="">All Categories</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="search-actions">
+                        <button type="submit" class="btn btn-primary">🔍 Search Events</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearFilters()">Clear Filters</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 搜索结果 -->
+        <section class="results-section">
+            <div class="container">
+                <div class="results-header">
+                    <h2>Search Results</h2>
+                    <div class="results-count" id="resultsCount"></div>
+                </div>
+                
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Search results will be loaded dynamically via JavaScript -->
+                </div>
+                
+                <div class="no-results" id="noResults" style="display: none;">
+                    <div class="no-results-content">
+                        <div class="no-results-icon">🔍</div>
+                        <h3>No Matching Events Found</h3>
+                        <p>Please try adjusting your search criteria or browse all events</p>
+                        <a href="/" class="btn btn-outline">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Charity House. Spreading love, making the world better.</p>
+        </div>
+    </footer>
+
+    <script src="search.js"></script>
+</body>
+</html>
