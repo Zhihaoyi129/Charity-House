@@ -37,7 +37,7 @@ const upload = multer({
         if (file.mimetype.startsWith('image/')) {
             cb(null, true);
         } else {
-            cb(new Error('只允许上传图片文件'));
+            cb(new Error('Only image files are allowed to be uploaded.'));
         }
     }
 });
@@ -60,18 +60,18 @@ function normalizeTimeString(timeString) {
 app.post('/api/upload/image', upload.single('image'), (req, res) => {
     try {
         if (!req.file) {
-            return res.status(400).json({ error: '没有上传文件' });
+            return res.status(400).json({ error: 'No file has been uploaded.' });
         }
         
         // 返回图片的相对路径
         const imagePath = `/img/${req.file.filename}`;
         res.json({ 
-            message: '图片上传成功',
+            message: 'Image upload successful',
             imagePath: imagePath 
         });
     } catch (error) {
-        console.error('图片上传失败:', error);
-        res.status(500).json({ error: '图片上传失败' });
+        console.error('Image upload failed:', error);
+        res.status(500).json({ error: 'Image upload failed' });
     }
 });
 
@@ -85,8 +85,8 @@ app.get('/api/events', (req, res) => {
     
     db.query(query, (err, results) => {
         if (err) {
-            console.error('查询活动失败:', err);
-            res.status(500).json({ error: '服务器内部错误' });
+            console.error('Query activity failed:', err);
+            res.status(500).json({ error: 'Internal server error' });
             return;
         }
         res.json(results);
@@ -104,8 +104,8 @@ app.get('/api/events/upcoming', (req, res) => {
     
     db.query(query, (err, results) => {
         if (err) {
-            console.error('查询即将举行的活动失败:', err);
-            res.status(500).json({ error: '服务器内部错误' });
+            console.error('The query for the upcoming event failed:', err);
+            res.status(500).json({ error: 'Internal server error' });
             return;
         }
         res.json(results);
@@ -137,8 +137,8 @@ app.get('/api/events/search', (req, res) => {
     
     db.query(query, params, (err, results) => {
         if (err) {
-            console.error('搜索活动失败:', err);
-            res.status(500).json({ error: '服务器内部错误' });
+            console.error('Search activity failed:', err);
+            res.status(500).json({ error: 'Internal server error' });
             return;
         }
         res.json(results);
@@ -152,13 +152,13 @@ app.get('/api/events/:id', (req, res) => {
     
     db.query(query, [eventId], (err, results) => {
         if (err) {
-            console.error('查询活动详情失败:', err);
-            res.status(500).json({ error: '服务器内部错误' });
+            console.error('Failed to retrieve details of the activity:', err);
+            res.status(500).json({ error: 'Internal server error' });
             return;
         }
         
         if (results.length === 0) {
-            res.status(404).json({ error: '活动不存在' });
+            res.status(404).json({ error: 'The activity does not exist.' });
             return;
         }
         
@@ -240,8 +240,8 @@ app.get('/api/categories', (req, res) => {
     
     db.query(query, (err, results) => {
         if (err) {
-            console.error('查询活动类别失败:', err);
-            res.status(500).json({ error: '服务器内部错误' });
+            console.error('Query for activity category failed:', err);
+            res.status(500).json({ error: 'Internal server error' });
             return;
         }
         
@@ -269,7 +269,7 @@ app.post('/api/events/:id/register', (req, res) => {
     // 验证必填字段
     if (!name || !phone) {
         console.log('Missing required fields:', { name, phone });
-        res.status(400).json({ error: '姓名和电话号码为必填项' });
+        res.status(400).json({ error: 'Name and phone number are mandatory fields.' });
         return;
     }
 
@@ -277,7 +277,7 @@ app.post('/api/events/:id/register', (req, res) => {
     const quantity = parseInt(ticketQuantity);
     if (isNaN(quantity) || quantity < 1 || quantity > 10) {
         console.log('Invalid ticket quantity:', quantity);
-        res.status(400).json({ error: '票数必须在1到10之间' });
+        res.status(400).json({ error: 'The number of votes must be between 1 and 10.' });
         return;
     }
 
@@ -286,14 +286,14 @@ app.post('/api/events/:id/register', (req, res) => {
 
     db.query(checkEventQuery, [eventId], (err, eventResults) => {
         if (err) {
-            console.error('查询活动信息失败:', err);
-            res.status(500).json({ error: '服务器内部错误' });
+            console.error('Failed to query activity information:', err);
+            res.status(500).json({ error: 'Internal server error' });
             return;
         }
 
         if (eventResults.length === 0) {
             console.log('Event not found:', eventId);
-            res.status(404).json({ error: '活动不存在' });
+            res.status(404).json({ error: 'The activity does not exist.' });
             return;
         }
 
@@ -301,7 +301,7 @@ app.post('/api/events/:id/register', (req, res) => {
 
         // 检查活动状态
         if (event.status !== 'upcoming') {
-            res.status(400).json({ error: '该活动当前无法注册' });
+            res.status(400).json({ error: 'The activity is currently unavailable for registration.' });
             return;
         }
 
@@ -309,7 +309,7 @@ app.post('/api/events/:id/register', (req, res) => {
         if (event.max_participants) {
             const availableSlots = event.max_participants - (event.current_participants || 0);
             if (availableSlots < quantity) {
-                res.status(400).json({ error: `名额不足。仅剩 ${availableSlots} 个名额` });
+                res.status(400).json({ error: `There are insufficient places available. Only a few remain ${availableSlots}  spot ` });
                 return;
             }
         }
@@ -319,29 +319,29 @@ app.post('/api/events/:id/register', (req, res) => {
 
         db.query(checkRegistrationQuery, [eventId, phone], (err, registrationResults) => {
             if (err) {
-                console.error('检查注册状态失败:', err);
-                res.status(500).json({ error: '服务器内部错误' });
+                console.error('Failed to check registration status:', err);
+                res.status(500).json({ error: 'Internal server error' });
                 return;
             }
 
             if (registrationResults.length > 0) {
-                res.status(400).json({ error: '您已经注册过该活动' });
+                res.status(400).json({ error: 'You have already registered for this event.' });
                 return;
             }
 
             // 开始事务：插入注册记录并更新参与人数
             db.getConnection((err, connection) => {
                 if (err) {
-                    console.error('获取数据库连接失败:', err);
-                    res.status(500).json({ error: '注册失败' });
+                    console.error('Failed to obtain database connection:', err);
+                    res.status(500).json({ error: 'Registration failed' });
                     return;
                 }
 
                 connection.beginTransaction((err) => {
                     if (err) {
                         connection.release();
-                        console.error('开始事务失败:', err);
-                        res.status(500).json({ error: '注册失败' });
+                        console.error('Transaction initiation failed:', err);
+                        res.status(500).json({ error: 'Registration failed' });
                         return;
                     }
 
@@ -359,8 +359,8 @@ app.post('/api/events/:id/register', (req, res) => {
                         if (err) {
                             return connection.rollback(() => {
                                 connection.release();
-                                console.error('插入注册记录失败:', err);
-                                res.status(500).json({ error: '注册失败' });
+                                console.error('Failed to insert registration record:', err);
+                                res.status(500).json({ error: 'Registration failed' });
                             });
                         }
 
@@ -371,8 +371,8 @@ app.post('/api/events/:id/register', (req, res) => {
                             if (err) {
                                 return connection.rollback(() => {
                                     connection.release();
-                                    console.error('更新参与人数失败:', err);
-                                    res.status(500).json({ error: '注册失败' });
+                                    console.error('Failed to update the number of participants:', err);
+                                    res.status(500).json({ error: 'Registration failed' });
                                 });
                             }
 
@@ -381,8 +381,8 @@ app.post('/api/events/:id/register', (req, res) => {
                                 if (err) {
                                     return connection.rollback(() => {
                                         connection.release();
-                                        console.error('提交事务失败:', err);
-                                        res.status(500).json({ error: '注册失败' });
+                                        console.error('Transaction submission failed:', err);
+                                        res.status(500).json({ error: 'Registration failed' });
                                     });
                                 }
 
@@ -390,7 +390,7 @@ app.post('/api/events/:id/register', (req, res) => {
                                 console.log('Registration successful:', { registrationId: insertResults.insertId, eventId, name });
 
                                 res.json({
-                                    message: '注册成功！',
+                                    message: 'Registration successful!！',
                                     registrationId: insertResults.insertId,
                                     ticketQuantity: quantity
                                 });
@@ -428,8 +428,8 @@ app.get('/api/admin/statistics', (req, res) => {
         };
         res.json(statistics);
     }).catch(err => {
-        console.error('获取统计数据失败:', err);
-        res.status(500).json({ error: '服务器内部错误' });
+        console.error('Failed to obtain statistical data:', err);
+        res.status(500).json({ error: 'Internal server error' });
     });
 });
 
@@ -439,8 +439,8 @@ app.get('/api/admin/events', (req, res) => {
     
     db.query(query, (err, results) => {
         if (err) {
-            console.error('查询活动失败:', err);
-            res.status(500).json({ error: '服务器内部错误' });
+            console.error('Query activity failed:', err);
+            res.status(500).json({ error: 'Internal server error' });
             return;
         }
         res.json(results);
@@ -466,7 +466,7 @@ app.post('/api/admin/events', (req, res) => {
 
     // 验证必填字段
     if (!name || !category || !date || !location) {
-        res.status(400).json({ error: '活动名称、类别、日期和地点为必填项' });
+        res.status(400).json({ error: 'The activity name, category, date and location are mandatory fields.' });
         return;
     }
 
@@ -486,11 +486,11 @@ app.post('/api/admin/events', (req, res) => {
         status || 'upcoming', description || null, image_url || null
     ], (err, results) => {
         if (err) {
-            console.error('创建活动失败:', err);
-            res.status(500).json({ error: '创建活动失败: ' + err.message });
+            console.error('The activity creation failed:', err);
+            res.status(500).json({ error: 'The activity creation failed: ' + err.message });
             return;
         }
-        res.json({ message: '活动创建成功', id: results.insertId });
+        res.json({ message: 'The activity has been successfully created.', id: results.insertId });
     });
 });
 
@@ -514,7 +514,7 @@ app.put('/api/admin/events/:id', (req, res) => {
 
     // 验证必填字段
     if (!name || !category || !date || !location) {
-        res.status(400).json({ error: '活动名称、类别、日期和地点为必填项' });
+        res.status(400).json({ error: 'The activity name, category, date and location are mandatory fields.' });
         return;
     }
 
@@ -535,17 +535,17 @@ app.put('/api/admin/events/:id', (req, res) => {
         status || 'upcoming', description || null, image_url || null, eventId
     ], (err, results) => {
         if (err) {
-            console.error('更新活动失败:', err);
-            res.status(500).json({ error: '更新活动失败: ' + err.message });
+            console.error('Update activity failed:', err);
+            res.status(500).json({ error: 'Update activity failed: ' + err.message });
             return;
         }
         
         if (results.affectedRows === 0) {
-            res.status(404).json({ error: '活动不存在' });
+            res.status(404).json({ error: 'The activity does not exist.' });
             return;
         }
         
-        res.json({ message: '活动更新成功' });
+        res.json({ message: 'Activity update successful' });
     });
 });
 
@@ -556,16 +556,16 @@ app.delete('/api/admin/events/:id', (req, res) => {
     // 使用连接池获取连接来处理事务
     db.getConnection((err, connection) => {
         if (err) {
-            console.error('获取数据库连接失败:', err);
-            res.status(500).json({ error: '删除活动失败' });
+            console.error('Failed to obtain database connection:', err);
+            res.status(500).json({ error: 'Deletion of the activity failed' });
             return;
         }
 
         connection.beginTransaction((err) => {
             if (err) {
                 connection.release();
-                console.error('开始事务失败:', err);
-                res.status(500).json({ error: '删除活动失败' });
+                console.error('Transaction initiation failed:', err);
+                res.status(500).json({ error: 'Deletion of the activity failed' });
                 return;
             }
 
@@ -576,8 +576,8 @@ app.delete('/api/admin/events/:id', (req, res) => {
                 if (err) {
                     return connection.rollback(() => {
                         connection.release();
-                        console.error('删除注册记录失败:', err);
-                        res.status(500).json({ error: '删除活动失败: ' + err.message });
+                        console.error('Failed to delete registration record:', err);
+                        res.status(500).json({ error: 'Deletion of the activity failed: ' + err.message });
                     });
                 }
 
@@ -588,15 +588,15 @@ app.delete('/api/admin/events/:id', (req, res) => {
                     if (err) {
                         return connection.rollback(() => {
                             connection.release();
-                            console.error('删除活动失败:', err);
-                            res.status(500).json({ error: '删除活动失败: ' + err.message });
+                            console.error('Deletion of the activity failed:', err);
+                            res.status(500).json({ error: 'Deletion of the activity failed: ' + err.message });
                         });
                     }
 
                     if (results.affectedRows === 0) {
                         return connection.rollback(() => {
                             connection.release();
-                            res.status(404).json({ error: '活动不存在' });
+                            res.status(404).json({ error: 'The activity does not exist.' });
                         });
                     }
 
@@ -605,13 +605,13 @@ app.delete('/api/admin/events/:id', (req, res) => {
                         if (err) {
                             return connection.rollback(() => {
                                 connection.release();
-                                console.error('提交事务失败:', err);
-                                res.status(500).json({ error: '删除活动失败: ' + err.message });
+                                console.error('Transaction submission failed:', err);
+                                res.status(500).json({ error: 'Deletion of the activity failed: ' + err.message });
                             });
                         }
 
                         connection.release();
-                        res.json({ message: '活动删除成功' });
+                        res.json({ message: 'Activity deletion successful' });
                     });
                 });
             });
