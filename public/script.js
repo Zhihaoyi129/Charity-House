@@ -44,12 +44,12 @@ function createEventCard(event) {
     
     // Set different icons based on event category
     const categoryIcons = {
-        '环保': '🌱',
-        '教育': '📚',
-        '关爱': '❤️',
-        '筹款': '💰',
-        '扶贫': '🤝',
-        '医疗': '🏥'
+        'Environmental protection': '🌱',
+        'education': '📚',
+        'care': '❤️',
+        'raise funds': '💰',
+        'poverty relief': '🤝',
+        'medical treatment': '🏥'
     };
     
     const icon = categoryIcons[event.category] || '🎯';

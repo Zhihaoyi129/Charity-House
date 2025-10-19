@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration - Charity Events Website</title>
+    <link rel="stylesheet" href="/register.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>❤️ Charity House</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/search" class="nav-link">Search Events</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin" class="nav-link">Admin</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Title Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>🎫 Event Registration</h1>
+                <p>Fill in your information and select ticket quantity</p>
+            </div>
+        </section>
+
+        <!-- Registration Form Section -->
+        <section class="form-section">
+            <div class="container">
+                <!-- Event Information Display -->
+                <div class="event-info-card" id="eventInfoCard">
+                    <div class="loading">Loading event information...</div>
+                </div>
+
+                <!-- Registration Form -->
+                <div class="registration-card">
+                    <h2>📝 Registration Information</h2>
+                    <form id="registrationForm" class="registration-form">
+                        <div class="form-section-title">Basic Information</div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="participantName">Name <span class="required">*</span></label>
+                                <input type="text" id="participantName" name="name" required class="form-input" placeholder="Enter your name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="participantPhone">Phone Number <span class="required">*</span></label>
+                                <input type="tel" id="participantPhone" name="phone" required class="form-input" placeholder="Enter your phone number">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="participantEmail">Email Address</label>
+                                <input type="email" id="participantEmail" name="email" class="form-input" placeholder="Enter your email address">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="participantAge">Age Group</label>
+                                <select id="participantAge" name="age" class="form-input">
+                                    <option value="">Please select age group</option>
+                                    <option value="18-25">18-25 years old</option>
+                                    <option value="26-35">26-35 years old</option>
+                                    <option value="36-45">36-45 years old</option>
+                                    <option value="46-55">46-55 years old</option>
+                                    <option value="56+">56+ years old</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-section-title">Ticket Information</div>
+
+                        <div class="ticket-selection">
+                            <div class="form-group">
+                                <label for="ticketQuantity">Ticket Quantity <span class="required">*</span></label>
+                                <div class="quantity-control">
+                                    <button type="button" class="quantity-btn" id="decreaseBtn">-</button>
+                                    <input type="number" id="ticketQuantity" name="ticketQuantity" value="1" min="1" max="10" required class="quantity-input" readonly>
+                                    <button type="button" class="quantity-btn" id="increaseBtn">+</button>
+                                </div>
+                                <div class="quantity-hint">Maximum 10 tickets per person</div>
+                            </div>
+
+                            <div class="ticket-summary">
+                                <div class="summary-row">
+                                    <span>Ticket Price:</span>
+                                    <span class="ticket-price" id="ticketPrice">$0.00</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Quantity:</span>
+                                    <span class="ticket-count" id="ticketCount">1</span>
+                                </div>
+                                <div class="summary-row total">
+                                    <span>Total:</span>
+                                    <span class="total-price" id="totalPrice">$0.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section-title">Additional Information</div>
+
+                        <div class="form-group">
+                            <label for="participantExperience">Volunteer Experience</label>
+                            <select id="participantExperience" name="experience" class="form-input">
+                                <option value="">Please select</option>
+                                <option value="none">No experience</option>
+                                <option value="beginner">Beginner (1-2 times)</option>
+                                <option value="intermediate">Intermediate (3-10 times)</option>
+                                <option value="advanced">Advanced (10+ times)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="participantMotivation">Participation Motivation</label>
+                            <textarea id="participantMotivation" name="motivation" rows="4" class="form-input" placeholder="Please briefly describe your motivation or expectations for participating in this event..."></textarea>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                                <span class="checkmark"></span>
+                                <span>I have read and agree to the event terms and safety guidelines <span class="required">*</span></span>
+                            </label>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="allowContact" name="allowContact">
+                                <span class="checkmark"></span>
+                                <span>I agree to receive event notifications and information about future charity events</span>
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="goBack()">Back</button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Submit Registration</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Charity House. Spreading love to make the world a better place.</p>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header success">
+                <h3>🎉 Registration Successful!</h3>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">✓</div>
+                <p class="success-message">Congratulations on successfully registering for this charity event!</p>
+                <div class="registration-details" id="registrationDetails"></div>
+                <p class="success-note">We will notify you of specific arrangements via email or SMS before the event starts.</p>
+                <p class="success-thanks">Thank you for your caring participation!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="redirectToEventDetail()">View Event Details</button>
+                <button class="btn btn-secondary" onclick="redirectToHome()">Back to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal" id="errorModal">
+        <div class="modal-content">
+            <div class="modal-header error">
+                <h3>⚠️ Notice</h3>
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage">Registration failed, please try again later.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/register.js"></script>
+</body>
+</html>

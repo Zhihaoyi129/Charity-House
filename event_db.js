@@ -14,10 +14,10 @@ const pool = mysql.createPool({
 // 测试数据库连接
 pool.getConnection((err, connection) => {
     if (err) {
-        console.error('连接数据库失败: ' + err.stack);
+        console.error('Failed to connect to the database:' + err.stack);
         return;
     }
-    console.log('已连接到数据库，连接ID: ' + connection.threadId);
+    console.log('The database has been connected. Connection ID: ' + connection.threadId);
     connection.release();
 });
 

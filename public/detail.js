@@ -57,12 +57,12 @@ function renderEventDetail(event) {
     
     // Set different icons based on event category
     const categoryIcons = {
-        '环保': '🌱',
-        '教育': '📚',
-        '关爱': '❤️',
-        '筹款': '💰',
-        '扶贫': '🤝',
-        '医疗': '🏥'
+        'environmental protection': '🌱',
+        'education': '📚',
+        'care': '❤️',
+        'raise funds': '💰',
+        'poverty relief': '🤝',
+        'medical treatment': '🏥'
     };
     
     const icon = categoryIcons[event.category] || '🎯';
@@ -87,7 +87,7 @@ function renderEventDetail(event) {
                     `<span class="detail-icon">${icon}</span>`
                 }
                 <h1>${event.name}</h1>
-                <p>${event.description || '一起参与这个有意义的慈善活动'}</p>
+                <p>${event.description || 'Participate together in this meaningful charity event'}</p>
                 <span class="detail-status">${statusText}</span>
             </div>
         </section>
@@ -117,7 +117,7 @@ function renderEventDetail(event) {
                         <div class="info-icon">⏰</div>
                         <div class="info-content">
                             <h4>Event Time</h4>
-                            <p>${event.time || '全天'}</p>
+                            <p>${event.time || 'all day long'}</p>
                         </div>
                     </div>
                     
@@ -171,7 +171,7 @@ function renderEventDetail(event) {
                         <div class="info-icon">👫</div>
                         <div class="info-content">
                             <h4>Participants</h4>
-                            <p>${event.current_participants || 0}/${event.max_participants || '不限'}</p>
+                            <p>${event.current_participants || 0}/${event.max_participants || 'unlimited'}</p>
                         </div>
                     </div>
                 </div>
@@ -310,7 +310,7 @@ function setupRegistrationForm() {
 // 显示"功能建设中"提示
 function showUnderConstruction() {
     // 显示错误提示模态框，内容为"此功能正在建设中"
-    document.getElementById('errorMessage').textContent = '此功能正在建设中，敬请期待！';
+    document.getElementById('errorMessage').textContent = 'This feature is currently under construction. Please stay tuned!';
     document.getElementById('errorModal').style.display = 'block';
 }
 
@@ -342,7 +342,7 @@ async function handleRegistrationSubmit(event) {
     const agreeTerms = formData.get('agreeTerms');
 
     if (!name || !phone || !agreeTerms) {
-        alert('请填写所有必填字段并同意相关条款');
+        alert('Please fill in all the required fields and agree to the relevant terms.');
         return;
     }
 
@@ -365,8 +365,8 @@ async function handleRegistrationSubmit(event) {
         closeModal();
 
     } catch (error) {
-        console.error('注册失败:', error);
-        alert('注册失败，请稍后重试');
+        console.error('fail to register:', error);
+        alert('Registration failed. Please try again later.');
     }
 }
 
@@ -382,7 +382,7 @@ async function registerForEvent(eventId, registrationData = {}) {
         });
 
         if (!response.ok) {
-            throw new Error('注册失败');
+            throw new Error('fail to register');
         }
 
         const result = await response.json();
@@ -407,7 +407,7 @@ function showRegistrationSuccess() {
 
 // 显示注册错误模态框
 function showRegistrationError() {
-    document.getElementById('errorMessage').textContent = '注册失败，请稍后重试或联系客服。';
+    document.getElementById('errorMessage').textContent = 'Registration failed. Please try again later or contact customer service.';
     document.getElementById('errorModal').style.display = 'block';
 }
 
@@ -423,9 +423,9 @@ function showError(message) {
     const container = document.getElementById('detailContainer');
     container.innerHTML = `
         <div class="error-detail">
-            <h2>😔 出现了一些问题</h2>
+            <h2>😔 Some problems have arisen.</h2>
             <p>${message}</p>
-            <p>请检查活动链接是否正确，或者返回主页浏览其他活动。</p>
+            <p>Please check if the activity link is correct, or return to the homepage to view other activities.</p>
             <a href="/" class="btn btn-primary">返回主页</a>
             <a href="/search" class="btn btn-outline">浏览所有活动</a>
         </div>
