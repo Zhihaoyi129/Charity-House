@@ -1,9 +1,6 @@
--- 删除并重新创建慈善活动数据库
-DROP DATABASE IF EXISTS charityevents_db;
-CREATE DATABASE charityevents_db;
-USE charityevents_db;
+USE hchen44_A3_GC7_HaoChen;
 
--- 创建活动表
+-- Create an activity table
 CREATE TABLE IF NOT EXISTS events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -23,7 +20,7 @@ CREATE TABLE IF NOT EXISTS events (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- 创建活动注册表
+-- Create an event registration table
 CREATE TABLE IF NOT EXISTS event_registrations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     event_id INT NOT NULL,
@@ -39,7 +36,7 @@ CREATE TABLE IF NOT EXISTS event_registrations (
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
 
--- 插入示例数据
+-- Insert sample data
 INSERT INTO events (name, description, date, time, location, category, organizer, contact_info, registration_fee, max_participants) VALUES
 ('Community Cleanup', 'Help clean up the community and beautify the environment', '2024-10-15', '09:00:00', 'Downtown Park', 'environmental protection', 'Green Earth Organization', 'contact@greenearth.org', 0.00, 50),
 ('Children Book Donation', 'Donate books and learning supplies to children in impoverished areas', '2024-10-20', '14:00:00', 'City Library', 'education', 'Light of Hope Foundation', 'info@hopelight.org', 0.00, 100),

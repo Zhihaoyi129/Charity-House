@@ -9,18 +9,18 @@ const https = require('https');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 配置multer用于文件上传
+// Configure Multer for file uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const uploadPath = path.join(__dirname, 'public', 'img');
-        // 确保目录存在
+        // Ensure that the table of contents exists.
         if (!fs.existsSync(uploadPath)) {
             fs.mkdirSync(uploadPath, { recursive: true });
         }
         cb(null, uploadPath);
     },
     filename: function (req, file, cb) {
-        // 生成唯一文件名：时间戳 + 随机数 + 原始扩展名
+        // Generate a unique file name: timestamp + random number + original extension name
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         const ext = path.extname(file.originalname);
         cb(null, uniqueSuffix + ext);
@@ -30,10 +30,10 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 2 * 1024 * 1024 // 限制文件大小为2MB
+        fileSize: 2 * 1024 * 1024 // Limit the file size to 2MB.
     },
     fileFilter: function (req, file, cb) {
-        // 只允许图片文件
+        // Only image files are allowed.
         if (file.mimetype.startsWith('image/')) {
             cb(null, true);
         } else {
@@ -42,28 +42,26 @@ const upload = multer({
     }
 });
 
-// 中间件
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-// 辅助函数：规范化时间字符串
 function normalizeTimeString(timeString) {
     if (!timeString) return null;
-    // 将中文全角冒号转换为英文半角冒号
     return timeString.replace(/：/g, ':');
 }
 
-// API 路由
+// API routing
 
-// 图片上传接口
+// Image upload interface
 app.post('/api/upload/image', upload.single('image'), (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No file has been uploaded.' });
         }
         
-        // 返回图片的相对路径
+        // The relative path of the returned image
         const imagePath = `/img/${req.file.filename}`;
         res.json({ 
             message: 'Image upload successful',
@@ -75,7 +73,7 @@ app.post('/api/upload/image', upload.single('image'), (req, res) => {
     }
 });
 
-// 获取所有活动（主页使用）
+// Get all activities (used on the homepage)
 app.get('/api/events', (req, res) => {
     const query = `
         SELECT * FROM events 
@@ -93,7 +91,7 @@ app.get('/api/events', (req, res) => {
     });
 });
 
-// 获取即将举行的活动（主页重点显示）
+// Get information on the upcoming events (highlighted on the homepage)
 app.get('/api/events/upcoming', (req, res) => {
     const query = `
         SELECT * FROM events 
@@ -112,7 +110,7 @@ app.get('/api/events/upcoming', (req, res) => {
     });
 });
 
-// 搜索活动（搜索页面使用）
+// Search activity (used on the search page)
 app.get('/api/events/search', (req, res) => {
     const { date, location, category } = req.query;
     let query = 'SELECT * FROM events WHERE 1=1';
@@ -145,7 +143,7 @@ app.get('/api/events/search', (req, res) => {
     });
 });
 
-// 获取单个活动详情
+// Obtain details of a single activity
 app.get('/api/events/:id', (req, res) => {
     const eventId = req.params.id;
     const query = 'SELECT * FROM events WHERE id = ?';
@@ -234,7 +232,7 @@ app.get('/api/events/:id/registrations', (req, res) => {
     });
 });
 
-// 获取活动类别列表
+// Obtain the list of activity categories
 app.get('/api/categories', (req, res) => {
     const query = 'SELECT DISTINCT category FROM events ORDER BY category';
     
@@ -250,7 +248,7 @@ app.get('/api/categories', (req, res) => {
     });
 });
 
-// 活动注册（完整实现）
+// Activity Registration (Complete Implementation)
 app.post('/api/events/:id/register', (req, res) => {
     const eventId = req.params.id;
     const {
@@ -266,14 +264,14 @@ app.post('/api/events/:id/register', (req, res) => {
 
     console.log('Registration request received:', { eventId, name, phone, ticketQuantity });
 
-    // 验证必填字段
+    // Verify mandatory fields
     if (!name || !phone) {
         console.log('Missing required fields:', { name, phone });
         res.status(400).json({ error: 'Name and phone number are mandatory fields.' });
         return;
     }
 
-    // 验证票数
+    // Verify the vote count
     const quantity = parseInt(ticketQuantity);
     if (isNaN(quantity) || quantity < 1 || quantity > 10) {
         console.log('Invalid ticket quantity:', quantity);
@@ -281,7 +279,7 @@ app.post('/api/events/:id/register', (req, res) => {
         return;
     }
 
-    // 首先检查活动是否存在且有可用名额
+    // First, check whether the activity exists and if there are available places.
     const checkEventQuery = 'SELECT max_participants, current_participants, status FROM events WHERE id = ?';
 
     db.query(checkEventQuery, [eventId], (err, eventResults) => {
@@ -299,14 +297,14 @@ app.post('/api/events/:id/register', (req, res) => {
 
         const event = eventResults[0];
 
-        // 检查活动状态
+        // Check the activity status
         if (event.status !== 'upcoming') {
             res.status(400).json({ error: 'The activity is currently unavailable for registration.' });
             return;
         }
-
-        // 检查是否有足够的名额（如果设置了最大参与人数）
-        if (event.max_participants) {
+       
+       //Check if there are sufficient quotas (if a maximum number of participants has been set)
+       if (event.max_participants) {
             const availableSlots = event.max_participants - (event.current_participants || 0);
             if (availableSlots < quantity) {
                 res.status(400).json({ error: `There are insufficient places available. Only a few remain ${availableSlots}  spot ` });
@@ -314,7 +312,7 @@ app.post('/api/events/:id/register', (req, res) => {
             }
         }
 
-        // 检查是否已注册（基于电话号码）
+        // Check if registration has been completed (based on the phone number)
         const checkRegistrationQuery = 'SELECT id FROM event_registrations WHERE event_id = ? AND participant_phone = ?';
 
         db.query(checkRegistrationQuery, [eventId, phone], (err, registrationResults) => {
@@ -329,7 +327,7 @@ app.post('/api/events/:id/register', (req, res) => {
                 return;
             }
 
-            // 开始事务：插入注册记录并更新参与人数
+            // Start transaction: Insert registration record and update participation count
             db.getConnection((err, connection) => {
                 if (err) {
                     console.error('Failed to obtain database connection:', err);
@@ -345,7 +343,6 @@ app.post('/api/events/:id/register', (req, res) => {
                         return;
                     }
 
-                    // 插入注册记录
                     const insertRegistrationQuery = `
                         INSERT INTO event_registrations
                         (event_id, participant_name, participant_phone, participant_email,
@@ -364,7 +361,6 @@ app.post('/api/events/:id/register', (req, res) => {
                             });
                         }
 
-                        // 更新活动参与人数（基于票数）
                         const updateParticipantsQuery = 'UPDATE events SET current_participants = current_participants + ? WHERE id = ?';
 
                         connection.query(updateParticipantsQuery, [quantity, eventId], (err, updateResults) => {
@@ -376,7 +372,7 @@ app.post('/api/events/:id/register', (req, res) => {
                                 });
                             }
 
-                            // 提交事务
+                            // Submit the transaction
                             connection.commit((err) => {
                                 if (err) {
                                     return connection.rollback(() => {
@@ -403,9 +399,9 @@ app.post('/api/events/:id/register', (req, res) => {
     });
 });
 
-// 管理员API路由
+// Administrator API Routes
 
-// 获取统计数据
+//Obtain statistical data
 app.get('/api/admin/statistics', (req, res) => {
     const queries = [
         'SELECT COUNT(*) as totalEvents FROM events',
@@ -433,7 +429,7 @@ app.get('/api/admin/statistics', (req, res) => {
     });
 });
 
-// 获取所有活动（管理员视图）
+// Get all activities (admin view)
 app.get('/api/admin/events', (req, res) => {
     const query = 'SELECT * FROM events ORDER BY date DESC';
     
@@ -447,7 +443,7 @@ app.get('/api/admin/events', (req, res) => {
     });
 });
 
-// 创建新活动
+// Create a new activity
 app.post('/api/admin/events', (req, res) => {
     const {
         name,
@@ -464,13 +460,13 @@ app.post('/api/admin/events', (req, res) => {
         image_url
     } = req.body;
 
-    // 验证必填字段
+    // Verify mandatory fields
     if (!name || !category || !date || !location) {
         res.status(400).json({ error: 'The activity name, category, date and location are mandatory fields.' });
         return;
     }
 
-    // 规范化时间字符串
+    // Standardized time string
     const normalizedTime = normalizeTimeString(time);
 
     const query = `
@@ -494,7 +490,7 @@ app.post('/api/admin/events', (req, res) => {
     });
 });
 
-// 更新活动
+// Update activity
 app.put('/api/admin/events/:id', (req, res) => {
     const eventId = req.params.id;
     const {
@@ -512,13 +508,12 @@ app.put('/api/admin/events/:id', (req, res) => {
         image_url
     } = req.body;
 
-    // 验证必填字段
+    // Verify mandatory fields
     if (!name || !category || !date || !location) {
         res.status(400).json({ error: 'The activity name, category, date and location are mandatory fields.' });
         return;
     }
 
-    // 规范化时间字符串
     const normalizedTime = normalizeTimeString(time);
 
     const query = `
@@ -549,11 +544,10 @@ app.put('/api/admin/events/:id', (req, res) => {
     });
 });
 
-// 删除活动 - 修复版本
+// Delete Activity - Fix Version
 app.delete('/api/admin/events/:id', (req, res) => {
     const eventId = req.params.id;
     
-    // 使用连接池获取连接来处理事务
     db.getConnection((err, connection) => {
         if (err) {
             console.error('Failed to obtain database connection:', err);
@@ -569,7 +563,7 @@ app.delete('/api/admin/events/:id', (req, res) => {
                 return;
             }
 
-            // 首先删除相关的注册记录
+            // First, delete the relevant registration records.
             const deleteRegistrationsQuery = 'DELETE FROM event_registrations WHERE event_id = ?';
             
             connection.query(deleteRegistrationsQuery, [eventId], (err, results) => {
@@ -581,7 +575,7 @@ app.delete('/api/admin/events/:id', (req, res) => {
                     });
                 }
 
-                // 然后删除活动
+                // Then delete the activity
                 const deleteEventQuery = 'DELETE FROM events WHERE id = ?';
                 
                 connection.query(deleteEventQuery, [eventId], (err, results) => {
@@ -600,7 +594,7 @@ app.delete('/api/admin/events/:id', (req, res) => {
                         });
                     }
 
-                    // 提交事务
+                    // Submit the transaction
                     connection.commit((err) => {
                         if (err) {
                             return connection.rollback(() => {
@@ -619,7 +613,7 @@ app.delete('/api/admin/events/:id', (req, res) => {
     });
 });
 
-// 提供静态文件
+// Provide static files
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -640,7 +634,7 @@ app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
-// 启动服务器
+// Start the server
 app.listen(PORT, () => {
     console.log(`服务器运行在 http://localhost:${PORT}`);
 });
