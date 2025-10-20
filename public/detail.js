@@ -252,22 +252,22 @@ function renderEventDetail(event) {
     `;
 }
 
-// 显示指定的详情区域
+//Display the specified detail area
 function showSection(sectionId) {
-    // 隐藏所有区域
+    // Hide all areas
     document.querySelectorAll('.detail-section').forEach(section => {
         section.classList.remove('active');
     });
     
-    // 移除所有导航项的激活状态
+    // Remove the active state of all navigation items
     document.querySelectorAll('.detail-nav-item').forEach(item => {
         item.classList.remove('active');
     });
     
-    // 显示指定区域
+    // Display the specified area
     document.getElementById(sectionId).classList.add('active');
     
-    // 激活对应的导航项 - 通过查找包含对应文本的按钮
+    // Activate the corresponding navigation item - by locating the button that contains the corresponding text
     const navItems = document.querySelectorAll('.detail-nav-item');
     const sectionNames = {
         'basic': 'Basic Info',
@@ -282,7 +282,7 @@ function showSection(sectionId) {
         }
     });
     
-    // 如果切换到购票清单标签，加载购票信息
+    // If you switch to the "Ticket List" tab, the ticket information will be loaded.
     if (sectionId === 'tickets') {
         const eventId = getEventIdFromUrl();
         if (eventId) {
@@ -291,14 +291,14 @@ function showSection(sectionId) {
     }
 }
 
-// 设置导航功能
+//Set up navigation function
 function setupNavigation() {
-    // 这个函数在页面加载时调用，用于设置导航相关的事件监听
+    // This function is called when the page loads and is used to set up event listeners for navigation-related operations.
 }
 
-// 设置注册表单
+// Set up the registration form
 function setupRegistrationForm() {
-    // 等待DOM完全加载后再设置事件监听器
+    // Wait until the DOM is fully loaded before setting the event listener.
     setTimeout(() => {
         const registrationForm = document.getElementById('registrationForm');
         if (registrationForm) {
@@ -307,36 +307,35 @@ function setupRegistrationForm() {
     }, 100);
 }
 
-// 显示"功能建设中"提示
+//Display the "Function Under Construction" prompt
 function showUnderConstruction() {
-    // 显示错误提示模态框，内容为"此功能正在建设中"
+    //Display the error prompt modal box, with the content being "This function is under construction."
     document.getElementById('errorMessage').textContent = 'This feature is currently under construction. Please stay tuned!';
     document.getElementById('errorModal').style.display = 'block';
 }
 
-// 显示注册表单
+//Display the registration form
 function showRegistrationForm(eventId) {
-    // 存储当前活动ID供表单提交使用
+    // Store the current activity ID for use in form submission
     window.currentEventId = eventId;
 
-    // 重置表单
+    // Reset the form
     const form = document.getElementById('registrationForm');
     if (form) {
         form.reset();
     }
 
-    // 显示注册表单模态框
+    // Display the registration form modal box
     document.getElementById('registrationFormModal').style.display = 'block';
 }
 
-// 处理注册表单提交
+// Process the submission of the registration form
 async function handleRegistrationSubmit(event) {
     event.preventDefault();
 
     const form = event.target;
     const formData = new FormData(form);
 
-    // 验证必填字段
     const name = formData.get('name');
     const phone = formData.get('phone');
     const agreeTerms = formData.get('agreeTerms');
@@ -346,7 +345,6 @@ async function handleRegistrationSubmit(event) {
         return;
     }
 
-    // 构建注册数据
     const registrationData = {
         name: name,
         phone: phone,
@@ -358,10 +356,10 @@ async function handleRegistrationSubmit(event) {
     };
 
     try {
-        // 提交注册信息
+        // Submit registration information
         await registerForEvent(window.currentEventId, registrationData);
 
-        // 关闭注册表单
+        // Close the registration form
         closeModal();
 
     } catch (error) {
@@ -370,7 +368,7 @@ async function handleRegistrationSubmit(event) {
     }
 }
 
-// 注册参加活动
+// Register to participate in the activity
 async function registerForEvent(eventId, registrationData = {}) {
     try {
         const response = await fetch(`/api/events/${eventId}/register`, {
@@ -388,7 +386,7 @@ async function registerForEvent(eventId, registrationData = {}) {
         const result = await response.json();
         showRegistrationSuccess();
 
-        // 重新加载活动详情以更新参与人数
+        // Reload the activity details to update the number of participants
         setTimeout(() => {
             loadEventDetail(eventId);
         }, 2000);
@@ -396,29 +394,29 @@ async function registerForEvent(eventId, registrationData = {}) {
     } catch (error) {
         console.error('注册失败:', error);
         showRegistrationError();
-        throw error; // 重新抛出错误供调用者处理
+        throw error; 
     }
 }
 
-// 显示注册成功模态框
+// Display the registration success modal box
 function showRegistrationSuccess() {
     document.getElementById('registrationModal').style.display = 'block';
 }
 
-// 显示注册错误模态框
+// Display the registration error modal box
 function showRegistrationError() {
     document.getElementById('errorMessage').textContent = 'Registration failed. Please try again later or contact customer service.';
     document.getElementById('errorModal').style.display = 'block';
 }
 
-// 关闭模态框
+// Close the modal window
 function closeModal() {
     document.querySelectorAll('.modal').forEach(modal => {
         modal.style.display = 'none';
     });
 }
 
-// 显示错误信息
+//Display error message
 function showError(message) {
     const container = document.getElementById('detailContainer');
     container.innerHTML = `
@@ -426,13 +424,12 @@ function showError(message) {
             <h2>😔 Some problems have arisen.</h2>
             <p>${message}</p>
             <p>Please check if the activity link is correct, or return to the homepage to view other activities.</p>
-            <a href="/" class="btn btn-primary">返回主页</a>
-            <a href="/search" class="btn btn-outline">浏览所有活动</a>
+            <a href="/" class="btn btn-primary">Return to the home page</a>
+            <a href="/search" class="btn btn-outline">Browse all activities</a>
         </div>
     `;
 }
 
-// 点击模态框外部关闭模态框
 window.onclick = function(event) {
     const modals = document.querySelectorAll('.modal');
     modals.forEach(modal => {

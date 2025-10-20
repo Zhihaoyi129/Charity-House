@@ -1,23 +1,23 @@
-/* 活动详情页面样式 */
+/* Style of the event details page */
 
-/* 详情容器样式 - 与主页container保持一致 */
+/* Details container style - Consistent with the homepage container */
 .detail-container {
     min-height: calc(100vh - 120px);
 }
 
-/* 返回按钮区域 */
+/* Return button area */
 .back-section {
     background-color: #f9f9f9;
     padding: 2rem 0;
 }
 
-/* 活动详情信息区域 - 与主页organization-info保持一致 */
+/* Activity Details Information Area - Consistent with the homepage "organization-info" section */
 .detail-info-section {
     padding: 4rem 0;
     background-color: white;
 }
 
-/* 加载状态样式 */
+/* Loading status style */
 .loading-detail {
     display: flex;
     flex-direction: column;
@@ -42,7 +42,7 @@
     color: #666;
 }
 
-/* 详情头部样式 - 完全与主页hero-section一致 */
+/* Details header style - exactly the same as the homepage hero-section */
 .detail-hero {
     background: linear-gradient(135deg, #007bff 0%, #28a745 100%);
     color: white;
@@ -82,7 +82,7 @@
     font-weight: 600;
 }
 
-/* 详情内容样式 - 与主页卡片样式保持一致 */
+/* Details content style - Consistent with the style of the homepage card */
 .detail-content {
     background: white;
     border-radius: 10px;
@@ -130,7 +130,7 @@
     display: block;
 }
 
-/* 基本信息样式 - 完全与主页info-card保持一致 */
+/* Basic information style - Completely consistent with the info-card on the homepage */
 .info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -178,7 +178,7 @@
     text-align: justify;
 }
 
-/* 注册区域样式 - 与主页contact-info保持一致 */
+/* Registration area style - Consistent with the homepage "contact-info" section */
 .registration-section {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     color: white;
@@ -247,7 +247,7 @@
     transform: none;
 }
 
-/* 模态框样式 */
+/* Modal box style */
 .modal {
     display: none;
     position: fixed;
@@ -312,7 +312,7 @@
     justify-content: flex-end;
 }
 
-/* 注册表单样式 */
+/* Registration form style */
 .registration-form {
     display: flex;
     flex-direction: column;
@@ -364,7 +364,7 @@ select.form-input {
     cursor: pointer;
 }
 
-/* 复选框样式 */
+/* Checkbox style */
 .checkbox-group {
     flex-direction: row;
     align-items: flex-start;
@@ -414,7 +414,7 @@ select.form-input {
     border-color: #007bff;
 }
 
-/* 按钮样式 - 与主页按钮保持一致 */
+/* Button style - Consistent with the home button */
 .btn-secondary {
     background-color: transparent;
     color: #007bff;
@@ -464,7 +464,7 @@ select.form-input {
     to { transform: translateY(0); opacity: 1; }
 }
 
-/* 错误状态样式 */
+/* Error status style */
 .error-detail {
     text-align: center;
     padding: 4rem 2rem;
@@ -483,7 +483,7 @@ select.form-input {
     line-height: 1.6;
 }
 
-/* 返回按钮样式 - 与主页btn-outline保持一致 */
+/* Return button style - Consistent with the "home" btn-outline style */
 .back-button {
     display: inline-flex;
     align-items: center;
@@ -506,7 +506,7 @@ select.form-input {
     transform: translateY(-2px);
 }
 
-/* 响应式设计 */
+/* Responsive design */
 @media (max-width: 768px) {
     .detail-hero .hero-content {
         padding: 0 15px;
@@ -571,6 +571,6 @@ select.form-input {
 
     .form-input {
         padding: 10px 12px;
-        font-size: 16px; /* 防止iOS缩放 */
+        font-size: 16px; /* Prevent iOS zooming */
     }
 }

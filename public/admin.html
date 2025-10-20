@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Charity Events Website</title>
     <style>
-        /* 全局样式 */
+        /* Global style */
         * {
             margin: 0;
             padding: 0;
@@ -25,7 +25,7 @@
             padding: 0 20px;
         }
 
-        /* 管理员导航栏 */
+        /* Administrator navigation bar */
         .admin-navbar {
             background: linear-gradient(135deg, #007bff 0%, #28a745 100%);
             color: white;
@@ -64,7 +64,7 @@
             background-color: rgba(255,255,255,0.3);
         }
 
-        /* 主要内容区域 */
+        /* Main content area */
         .admin-main {
             padding: 2rem 0;
             min-height: calc(100vh - 80px);
@@ -85,7 +85,7 @@
             font-size: 1.1rem;
         }
 
-        /* 统计卡片 */
+        /* Statistical card */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -124,7 +124,7 @@
             font-size: 1.1rem;
         }
 
-        /* 管理面板 */
+        /* Management Panel */
         .admin-panel {
             background: white;
             border-radius: 10px;
@@ -165,7 +165,7 @@
             padding: 2rem;
         }
 
-        /* 活动表格 */
+        /* Activity Form */
         .events-table {
             width: 100%;
             border-collapse: collapse;
@@ -245,7 +245,7 @@
             background-color: #c82333;
         }
 
-        /* 模态框 */
+        /* Modal box */
         .modal {
             display: none;
             position: fixed;
@@ -297,7 +297,7 @@
             padding: 2rem;
         }
 
-        /* 表单样式 */
+        /* Form style */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -377,7 +377,7 @@
             background-color: #545b62;
         }
 
-        /* 加载状态 */
+        /* Loading status */
         .loading {
             text-align: center;
             padding: 3rem;
@@ -399,7 +399,7 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* 响应式设计 */
+        /* Responsive design */
         @media (max-width: 768px) {
             .stats-grid {
                 grid-template-columns: 1fr;
@@ -425,7 +425,7 @@
     </style>
 </head>
 <body>
-    <!-- 管理员导航栏 -->
+    <!-- Administrator navigation bar -->
     <nav class="admin-navbar">
         <div class="container">
             <div class="admin-nav-container">
@@ -440,16 +440,16 @@
         </div>
     </nav>
 
-    <!-- 主要内容 -->
+    <!-- Main Content -->
     <main class="admin-main">
         <div class="container">
-            <!-- 页面标题 -->
+            <!-- Page Title -->
             <div class="admin-header">
                 <h1>Event Management Center</h1>
                 <p>Manage and monitor all charity events</p>
             </div>
 
-            <!-- 统计卡片 -->
+            <!-- Statistical card -->
             <div class="stats-grid" id="statsGrid">
                 <div class="stat-card">
                     <span class="stat-icon">📅</span>
@@ -473,7 +473,7 @@
                 </div>
             </div>
 
-            <!-- 活动管理面板 -->
+            <!-- Activity Management Panel -->
             <div class="admin-panel">
                 <div class="panel-header">
                     <h2 class="panel-title">Event List</h2>
@@ -491,7 +491,7 @@
         </div>
     </main>
 
-    <!-- 添加/编辑活动模态框 -->
+    <!-- Add/Edit Activity Modal Box -->
     <div class="modal" id="eventModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -577,7 +577,7 @@
         </div>
     </div>
 
-    <!-- 确认删除模态框 -->
+    <!-- Confirmation for deletion modal box -->
     <div class="modal" id="deleteModal">
         <div class="modal-content">
             <div class="modal-header">

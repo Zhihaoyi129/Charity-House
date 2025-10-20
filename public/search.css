@@ -1,6 +1,6 @@
-/* 搜索页面特定样式 */
+/* Search for specific styles on the page */
 
-/* 页面标题样式 */
+/* Page Title Style */
 .page-header {
     background: linear-gradient(135deg, #007bff 0%, #28a745 100%);
     color: white;
@@ -19,7 +19,7 @@
     opacity: 0.9;
 }
 
-/* 搜索区域样式 */
+/* Search area style */
 .search-section {
     padding: 3rem 0;
     background-color: white;
@@ -74,7 +74,7 @@
     flex-wrap: wrap;
 }
 
-/* 搜索结果区域样式 */
+/* Search result area style */
 .results-section {
     padding: 3rem 0;
     background-color: #f9f9f9;
@@ -109,7 +109,7 @@
     gap: 2rem;
 }
 
-/* 搜索结果卡片样式 */
+/* Search result card style */
 .result-card {
     background: white;
     border-radius: 12px;
@@ -229,7 +229,7 @@
     font-style: italic;
 }
 
-/* 无结果样式 */
+/* Resultless style */
 .no-results {
     text-align: center;
     padding: 4rem 2rem;
@@ -258,7 +258,7 @@
     line-height: 1.6;
 }
 
-/* 加载状态样式 */
+/* Loading status style */
 .loading-results {
     display: flex;
     justify-content: center;
@@ -280,7 +280,7 @@
     margin-left: 10px;
 }
 
-/* 错误状态样式 */
+/* Error status style */
 .error-message {
     background-color: #ffe6e6;
     color: #d63031;
@@ -291,7 +291,7 @@
     border-left: 4px solid #d63031;
 }
 
-/* 响应式设计 */
+/* Responsive design */
 @media (max-width: 768px) {
     .search-grid {
         grid-template-columns: 1fr;

@@ -1,4 +1,4 @@
-/* 全局样式 */
+/* Global style */
 * {
     margin: 0;
     padding: 0;
@@ -18,7 +18,7 @@ body {
     padding: 0 20px;
 }
 
-/* 导航栏样式 */
+/* Navigation bar style */
 .navbar {
     background: linear-gradient(135deg, #007bff 0%, #28a745 100%);
     color: white;
@@ -64,12 +64,12 @@ body {
     color: #fff;
 }
 
-/* 主要内容样式 */
+/* Main content format */
 .main-content {
     min-height: calc(100vh - 120px);
 }
 
-/* 欢迎区域样式 */
+/* Welcome to the regional style selection. */
 .hero-section {
     background: linear-gradient(135deg, #007bff 0%, #28a745 100%);
     color: white;
@@ -102,7 +102,7 @@ body {
     flex-wrap: wrap;
 }
 
-/* 按钮样式 */
+/* Button style */
 .btn {
     display: inline-block;
     padding: 12px 24px;
@@ -147,7 +147,7 @@ body {
     color: white;
 }
 
-/* 组织信息样式 */
+/* Organizational Information Format */
 .organization-info {
     padding: 4rem 0;
     background-color: white;
@@ -213,7 +213,7 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* 即将举行的活动样式 */
+/* The format of the upcoming event */
 .upcoming-events {
     padding: 4rem 0;
     background-color: #f9f9f9;
@@ -302,7 +302,7 @@ body {
     text-align: center;
 }
 
-/* 页脚样式 */
+/* Footer style */
 .footer {
     background-color: #333;
     color: white;
@@ -310,7 +310,7 @@ body {
     padding: 2rem 0;
 }
 
-/* 加载动画 */
+/* Loading animation */
 .loading {
     text-align: center;
     padding: 2rem;
@@ -335,7 +335,7 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* 响应式设计 */
+/* Responsive design */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;

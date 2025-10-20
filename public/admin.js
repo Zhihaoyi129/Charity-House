@@ -1,4 +1,4 @@
-// 管理员后台脚本
+// Administrator backend script
 let currentEvents = [];
 let editingEventId = null;
 let deleteEventId = null;
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventForm();
 });
 
-// 加载仪表板数据
+// Load dashboard data
 async function loadDashboardData() {
     try {
         await Promise.all([
@@ -21,7 +21,7 @@ async function loadDashboardData() {
     }
 }
 
-// 加载统计数据
+// Load statistical data
 async function loadStatistics() {
     try {
         const response = await fetch('/api/admin/statistics');
@@ -43,7 +43,7 @@ async function loadStatistics() {
     }
 }
 
-// 更新统计数据显示
+// Updated statistics show
 function updateStatistics(stats) {
     document.getElementById('totalEvents').textContent = stats.totalEvents || 0;
     document.getElementById('upcomingEvents').textContent = stats.upcomingEvents || 0;
@@ -51,7 +51,7 @@ function updateStatistics(stats) {
     document.getElementById('completedEvents').textContent = stats.completedEvents || 0;
 }
 
-// 加载活动列表
+// Load the list of activities
 async function loadEvents() {
     const container = document.getElementById('eventsContainer');
     
@@ -74,7 +74,7 @@ async function loadEvents() {
     }
 }
 
-// 渲染活动表格
+// Render the activity table
 function renderEventsTable(events) {
     const container = document.getElementById('eventsContainer');
     
@@ -132,7 +132,7 @@ function renderEventsTable(events) {
     container.innerHTML = tableHTML;
 }
 
-// 格式化日期
+// Format the date
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('zh-CN', {
@@ -213,7 +213,7 @@ function editEvent(eventId) {
     document.getElementById('eventModal').style.display = 'block';
 }
 
-// 显示删除确认对话框
+// Display the deletion confirmation dialog box
 function showDeleteConfirm(eventId) {
     deleteEventId = eventId;
     const event = currentEvents.find(e => e.id === eventId);
@@ -221,7 +221,7 @@ function showDeleteConfirm(eventId) {
     
     document.getElementById('deleteModal').style.display = 'block';
     
-    // 更新确认消息
+    // Update confirmation message
     const modalBody = document.querySelector('#deleteModal .modal-body');
     modalBody.innerHTML = `
         <p>Are you sure you want to delete the event "<strong>${eventName}</strong>"?</p>
@@ -268,7 +268,6 @@ async function handleFormSubmit(event) {
     
     const formData = new FormData(event.target);
     
-    // 验证时间格式 - 现在要求 HH:MM:SS 格式
     const timeValue = formData.get('time');
     if (timeValue && !isValidTimeFormat(timeValue)) {
         showError('Please enter time in HH:MM:SS format (e.g., 09:00:00)');
@@ -335,11 +334,9 @@ async function handleFormSubmit(event) {
     }
 }
 
-// 验证时间格式 - 严格的 HH:MM:SS 格式
 function isValidTimeFormat(timeString) {
     if (!timeString) return true; // 空值允许
     
-    // 验证 HH:MM:SS 格式
     const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
     return timeRegex.test(timeString);
 }

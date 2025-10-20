@@ -1,11 +1,11 @@
-// 搜索页面脚本
+//Search page script
 document.addEventListener('DOMContentLoaded', function() {
     loadCategories();
     loadAllEvents();
     setupSearchForm();
 });
 
-// 加载活动类别
+// Load activity categories
 async function loadCategories() {
     try {
         const response = await fetch('/api/categories');
@@ -25,12 +25,12 @@ async function loadCategories() {
     }
 }
 
-// 加载所有活动
+// Load all activities
 async function loadAllEvents() {
     await searchEvents({});
 }
 
-// 设置搜索表单
+// Set up the search form
 function setupSearchForm() {
     const searchForm = document.getElementById('searchForm');
     searchForm.addEventListener('submit', function(e) {
@@ -49,7 +49,7 @@ function setupSearchForm() {
     });
 }
 
-// 搜索活动
+// Search activity
 async function searchEvents(params) {
     const resultsGrid = document.getElementById('resultsGrid');
     const resultsCount = document.getElementById('resultsCount');
@@ -93,7 +93,7 @@ async function searchEvents(params) {
     }
 }
 
-// 创建搜索结果卡片
+// Create search result cards
 function createResultCard(event) {
     const eventDate = new Date(event.date);
     const formattedDate = eventDate.toLocaleDateString('zh-CN', {
@@ -145,19 +145,19 @@ function createResultCard(event) {
     `;
 }
 
-// 查看活动详情
+// View event details
 function viewEventDetail(eventId) {
     window.location.href = `/event/${eventId}`;
 }
 
-// 清除筛选条件
+// Clear filtering criteria
 function clearFilters() {
     const form = document.getElementById('searchForm');
     form.reset();
     loadAllEvents();
 }
 
-// 实时搜索（可选功能）
+// Real-time search (optional feature)
 function setupLiveSearch() {
     const inputs = document.querySelectorAll('.form-input');
     let searchTimeout;
@@ -177,7 +177,7 @@ function setupLiveSearch() {
                 }
                 
                 searchEvents(searchParams);
-            }, 500); // 500ms延迟
+            }, 500);
         });
     });
 }

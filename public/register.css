@@ -1,4 +1,4 @@
-/* 全局样式 */
+/* Global style */
 * {
     margin: 0;
     padding: 0;
@@ -18,7 +18,7 @@ body {
     padding: 0 20px;
 }
 
-/* 导航栏样式 */
+/* Navigation bar style */
 .navbar {
     background: linear-gradient(135deg, #007bff 0%, #28a745 100%);
     color: white;
@@ -63,12 +63,12 @@ body {
     color: #fff;
 }
 
-/* 主要内容区域 */
+/* Main content area */
 .main-content {
     min-height: calc(100vh - 120px);
 }
 
-/* Hero区域样式 */
+/* Hero area style */
 .hero-section {
     background: linear-gradient(135deg, #007bff 0%, #28a745 100%);
     color: white;
@@ -87,12 +87,12 @@ body {
     opacity: 0.9;
 }
 
-/* 表单区域样式 */
+/* Form area style */
 .form-section {
     padding: 3rem 0;
 }
 
-/* 活动信息卡片 */
+/* Activity Information Card */
 .event-info-card {
     background: white;
     border-radius: 15px;
@@ -159,7 +159,7 @@ body {
     font-weight: 500;
 }
 
-/* 注册卡片 */
+/* Registration card */
 .registration-card {
     background: white;
     border-radius: 15px;
@@ -175,7 +175,7 @@ body {
     border-bottom: 3px solid #007bff;
 }
 
-/* 表单样式 */
+/* Form style */
 .registration-form {
     display: flex;
     flex-direction: column;
@@ -240,7 +240,7 @@ select.form-input {
     cursor: pointer;
 }
 
-/* 票务选择样式 */
+/* Ticket selection options */
 .ticket-selection {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -303,7 +303,7 @@ select.form-input {
     font-style: italic;
 }
 
-/* 票务摘要 */
+/* Ticket Summary */
 .ticket-summary {
     background: white;
     padding: 1.5rem;
@@ -344,7 +344,7 @@ select.form-input {
     color: #28a745;
 }
 
-/* 复选框样式 */
+/* Checkbox style */
 .checkbox-group {
     flex-direction: row;
     align-items: flex-start;
@@ -394,7 +394,7 @@ select.form-input {
     border-color: #007bff;
 }
 
-/* 表单操作按钮 */
+/* Form operation button */
 .form-actions {
     display: flex;
     gap: 1rem;
@@ -404,7 +404,7 @@ select.form-input {
     border-top: 2px solid #e9ecef;
 }
 
-/* 按钮样式 */
+/* Button style */
 .btn {
     display: inline-block;
     padding: 14px 32px;
@@ -446,7 +446,7 @@ select.form-input {
     transform: translateY(-2px);
 }
 
-/* 模态框样式 */
+/* Modal box style */
 .modal {
     display: none;
     position: fixed;
@@ -573,7 +573,7 @@ select.form-input {
     justify-content: center;
 }
 
-/* 加载动画 */
+/* Loading animation */
 .loading {
     text-align: center;
     padding: 2rem;
@@ -593,7 +593,7 @@ select.form-input {
     margin-left: 10px;
 }
 
-/* 页脚样式 */
+/* Footer style */
 .footer {
     background-color: #333;
     color: white;
@@ -602,7 +602,6 @@ select.form-input {
     margin-top: 3rem;
 }
 
-/* 动画效果 */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -638,7 +637,6 @@ select.form-input {
     }
 }
 
-/* 响应式设计 */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;

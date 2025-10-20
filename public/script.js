@@ -1,9 +1,9 @@
-// 主页脚本
+// Homepage script
 document.addEventListener('DOMContentLoaded', function() {
     loadUpcomingEvents();
 });
 
-// 加载即将举行的活动
+// Loading information about the upcoming event
 async function loadUpcomingEvents() {
     const eventsGrid = document.getElementById('eventsGrid');
     
@@ -24,7 +24,7 @@ async function loadUpcomingEvents() {
             return;
         }
         
-        // 生成活动卡片HTML
+        // Generate HTML for activity cards
         eventsGrid.innerHTML = events.map(event => createEventCard(event)).join('');
         
     } catch (error) {
@@ -33,7 +33,7 @@ async function loadUpcomingEvents() {
     }
 }
 
-// 创建活动卡片HTML
+// Create HTML for activity cards
 function createEventCard(event) {
     const eventDate = new Date(event.date);
     const formattedDate = eventDate.toLocaleDateString('zh-CN', {
@@ -77,12 +77,12 @@ function createEventCard(event) {
     `;
 }
 
-// 查看活动详情
+// View event details
 function viewEventDetail(eventId) {
     window.location.href = `/event/${eventId}`;
 }
 
-// 平滑滚动到指定元素
+// Smoothly scroll to the specified element
 function scrollToElement(elementId) {
     const element = document.getElementById(elementId);
     if (element) {
@@ -92,7 +92,7 @@ function scrollToElement(elementId) {
     }
 }
 
-// 处理导航链接点击事件
+// Handle the click event of the navigation links
 document.addEventListener('click', function(e) {
     if (e.target.matches('a[href^="#"]')) {
         e.preventDefault();
